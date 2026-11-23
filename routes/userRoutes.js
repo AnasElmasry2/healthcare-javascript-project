@@ -1,9 +1,9 @@
 
 const express = require('express');
 
-const { RetrievAllUsers , getEmployeesandmanagers } = require('../controllers/user controller');
+const { RetrievAllUsers , getEmployeesandmanagers } = require('../controllers/usercontroller');
 
-const router = express.Router();
+const userRouter = express.Router();
 
 userRouter.get('/users', RetrievAllUsers);
 userRouter.get('/employees-managers', getEmployeesandmanagers);

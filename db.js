@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const db = mysql.createpool({
+const db = mysql.createPool({
     host: 'localhost',
     port : 3306,
     user: 'root',
