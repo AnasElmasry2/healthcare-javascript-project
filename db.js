@@ -3,23 +3,18 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const db = mysql.createPool({
-    host: 'localhost',
+    host: '127.0.0.1',
     port : 3306,
     user: 'root',
     password: process.env.DB_PASSWORD,
-    database: 'HEALTHCARE'
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+
   
 })
-const createUsersTable = ` CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL, 
-    role ENUM('user', 'admin') DEFAULT 'user', 
-    Manager_ID INT NULL,
-    FOREIGN KEY (Manager_ID) REFERENCES users(id)
-);`;
 
 
 
-module.exports = { db, createUsersTable } 
+module.exports = { db }; 

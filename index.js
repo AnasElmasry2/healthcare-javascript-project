@@ -1,16 +1,27 @@
 const express = require('express');
-const tripRouter = require('./routes/tripRoutes');
-const userRouter = require('./routes/userRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const authRouter = require('./routes/authRoutes');
+const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 const app = express();
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: 'Too many requests from this IP, please try again later.'
+});
+
+
 app.use(express.json());
-app.use('/trips', tripRouter);
-app.use('/users', userRouter);
-app.use('/reviews', reviewRouter);
-app.use('/auth', authRouter);
 
+app.use(cors({
+  origin: 'http://127.0.0.1:5500',
+  credentials: true
+}));
 
-module.exports = { app };
+app.use(cookieParser());
+app.use(limiter);
+
+module.exports = {
+  app,
+};

@@ -1,24 +1,11 @@
-const { app } = require('./index');
-const { db , createUsersTable} = require('./db');
+const { app } = require('./index.js'); 
+const PORT = process.env.PORT || 3000;
+const HOSTNAME = process.env.HOSTNAME || 'localhost';
 
-const port = 3000;
-const host = '127.0.0.1';
+app.listen(PORT, HOSTNAME, () => {
+  console.log(`Server running at http://${HOSTNAME}:${PORT}`);
+});
 
-async function startServer() {
-    try {
-        await db.query(createUsersTable);
-        console.log('Users table created successfully');
-
-        app.listen(port, host, () => {
-            console.log(`Server is running on port ${port}`);
-        }); 
-}
-catch (error) {
-        console.log('Error initializing db :');
-        await db.end();
-    }
-}
-startServer(); 
 
 
 
